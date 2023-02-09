@@ -9,9 +9,9 @@ namespace msdfgen {
 /// The configuration of the MSDF error correction pass.
 struct ErrorCorrectionConfig {
     /// The default value of minDeviationRatio.
-    static MSDFGEN_PUBLIC const double defaultMinDeviationRatio;
+    static const double defaultMinDeviationRatio;
     /// The default value of minImproveRatio.
-    static MSDFGEN_PUBLIC const double defaultMinImproveRatio;
+    static const double defaultMinImproveRatio;
 
     /// Mode of operation.
     enum Mode {
