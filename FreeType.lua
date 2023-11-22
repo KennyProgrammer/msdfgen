@@ -1,14 +1,21 @@
-project "freetype"
-	location "freetype"
-	kind "StaticLib"
-	language "C"
-    staticruntime "off"
+--
+-- Main Premake5 file for building FreeType project.
+-- Copyright (c) 2023 by Danil (Kenny) Dukhovenko, All rights reserved.
+--
+-- Requirement:
+--  - ForceEngine.lua
+--
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+-- FreeType C Project
+project "FreeType"
+	location      "freetype"
+	kind "        StaticLib"
+	language      "C"
+    staticruntime "on"
+	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/lib")
+	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/obj")
 
-	files
-	{
+	files {
 		"freetype/include/ft2build.h",
 		"freetype/include/freetype/*.h",
 		"freetype/include/freetype/config/*.h",
@@ -57,13 +64,11 @@ project "freetype"
 		"freetype/src/winfonts/winfnt.c"
 	}
 
-	includedirs
-	{
+	includedirs {
 		"freetype/include"
 	}
 
-	defines
-	{
+	defines {
 		"FT2_BUILD_LIBRARY",
 		"_CRT_SECURE_NO_WARNINGS",
 		"_CRT_NONSTDC_NO_WARNINGS",
@@ -79,61 +84,3 @@ project "freetype"
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "on"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "on"
-        symbols "off"
-
-project "msdfgen"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++17"
-    staticruntime "off"
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files
-	{
-		"core/**.h",
-		"core/**.hpp",
-		"core/**.cpp",
-		"ext/**.h",
-		"ext/**.hpp",
-		"ext/**.cpp",
-		"lib/**.cpp",
-		"include/**.h"
-	}
-
-	includedirs
-	{
-		"include",
-		"freetype/include"
-	}
-
-	defines
-	{
-		"MSDFGEN_USE_CPP11"
-	}
-
-	links
-	{
-		"freetype"
-	}
-
-	filter "system:windows"
-		systemversion "latest"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
-
-	filter "configurations:Dist"
-		runtime "Release"
-		optimize "on"
-        symbols "off"

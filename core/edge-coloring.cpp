@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <cmath>
 #include <cstring>
-#include <cfloat>
 #include <queue>
 #include "arithmetics.hpp"
 
@@ -245,7 +244,7 @@ static double edgeToEdgeDistance(const EdgeSegment &a, const EdgeSegment &b, int
 }
 
 static double splineToSplineDistance(EdgeSegment * const *edgeSegments, int aStart, int aEnd, int bStart, int bEnd, int precision) {
-    double minDistance = DBL_MAX;
+    double minDistance = fabs(SignedDistance::INFINITE.distance);
     for (int ai = aStart; ai < aEnd; ++ai)
         for (int bi = bStart; bi < bEnd && minDistance; ++bi) {
             double d = edgeToEdgeDistance(*edgeSegments[ai], *edgeSegments[bi], precision);
@@ -474,7 +473,7 @@ void edgeColoringByDistance(Shape &shape, double angleThreshold, unsigned long l
         edgeMatrix[i] = &edgeMatrixStorage[i*splineCount];
     int nextEdge = 0;
     for (; nextEdge < graphEdgeCount && !*graphEdgeDistances[nextEdge]; ++nextEdge) {
-        int elem = (int) (graphEdgeDistances[nextEdge]-distanceMatrixBase);
+        int elem = graphEdgeDistances[nextEdge]-distanceMatrixBase;
         int row = elem/splineCount;
         int col = elem%splineCount;
         edgeMatrix[row][col] = 1;
@@ -484,7 +483,7 @@ void edgeColoringByDistance(Shape &shape, double angleThreshold, unsigned long l
     std::vector<int> coloring(2*splineCount);
     colorSecondDegreeGraph(&coloring[0], &edgeMatrix[0], splineCount, seed);
     for (; nextEdge < graphEdgeCount; ++nextEdge) {
-        int elem = (int) (graphEdgeDistances[nextEdge]-distanceMatrixBase);
+        int elem = graphEdgeDistances[nextEdge]-distanceMatrixBase;
         tryAddEdge(&coloring[0], &edgeMatrix[0], splineCount, elem/splineCount, elem%splineCount, &coloring[splineCount]);
     }
 

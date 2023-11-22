@@ -28,3 +28,17 @@ out/
 /build_xcode/
 /cmake-gen.bat
 /line-ending-check.bat
+
+# Visual Studio clutter
+_ReSharper*
+*.dir
+*.vcxproj*
+*.sln
+CMakeSettings.json
+Win32
+x64
+Debug
+Release
+MinSizeRel
+RelWithDebInfo
+*.opensdf
