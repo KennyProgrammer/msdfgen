@@ -15,34 +15,37 @@ project "MsdfGen"
 	language      "C++"
 	cppdialect    "C++17"
 	staticruntime "on"
-	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/lib")
-	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/obj")
+	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/Lib")
+	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/Obj")
 
 	files {
-		"core/**.h",
-		"core/**.hpp",
-		"core/**.cpp",
-		"ext/**.h",
-		"ext/**.hpp",
-		"ext/**.cpp",
-		"lib/**.cpp",
-		"include/**.h"
+		"include/**.h",
+		"include/**.hpp",
+		"include/**.cpp"
 	}
 
 	includedirs {
 		"include",
-		"freetype/include"
+		"freetype/include",
 	}
 
-	links   = {}
-	defines = {}
+	local DefinesList = {}
+	local LinksList   = {}
 
-	if LinkLibrary["FreeType"] then
-		table.insert(links,   "FreeType")
-		table.insert(defines, "FE_LIBRARY_FREETYPE")
+	if Libraries["FreeType"] then
+		table.insert(LinksList,   "FreeType")
+		table.insert(DefinesList, "FE_LIBRARY_FREETYPE")
 	end
 
-	table.insert(defines, "MSDFGEN_USE_CPP11")
+	table.insert(DefinesList, "MSDFGEN_USE_CPP11")
+
+	defines {
+		DefinesList
+	}
+
+	links {
+		LinksList
+	}
 
 	filter "system:windows"
 		systemversion "latest"

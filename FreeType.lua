@@ -9,11 +9,11 @@
 -- FreeType C Project
 project "FreeType"
 	location      "freetype"
-	kind "        StaticLib"
+	kind          "StaticLib"
 	language      "C"
     staticruntime "on"
-	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/lib")
-	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/obj")
+	targetdir     ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/Lib")
+	objdir        ("%{ForceDir.BinLib}/" .. BuildDir .. "/%{prj.name}/Obj")
 
 	files {
 		"freetype/include/ft2build.h",
@@ -61,7 +61,8 @@ project "FreeType"
 		"freetype/src/truetype/truetype.c",
 		"freetype/src/type1/type1.c",
 		"freetype/src/type42/type42.c",
-		"freetype/src/winfonts/winfnt.c"
+		"freetype/src/winfonts/winfnt.c",
+		"freetype/src/svg/ftsvg.c"
 	}
 
 	includedirs {
