@@ -72,7 +72,7 @@ project "FreeType"
 	defines {
 		"FT2_BUILD_LIBRARY",
 		"_CRT_SECURE_NO_WARNINGS",
-		"_CRT_NONSTDC_NO_WARNINGS",
+		"_CRT_NONSTDC_NO_WARNINGS"
 	}
 
 	filter "system:windows"
